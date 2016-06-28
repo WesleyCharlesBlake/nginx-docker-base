@@ -4,12 +4,12 @@ maintainer Wesley Blake <wesley@stratotechnology.com>
 
 
 RUN apk add --update \
-    nginx \
-    && rm -rf /var/cache/apk/*
+    nginx &&\
+    rm -rf /var/cache/apk/* &&\
+    chown -R nginx:nginx /var/lib/nginx
 
 # setup all the configfiles
 ADD root /
 
-chown -R nginx:www-data /var/lib/nginx
 
 EXPOSE 80 443
