@@ -1,22 +1,15 @@
 FROM wesleycharlesblake/alpine-linux
-FROM python:2.7
 
 maintainer Wesley Blake <wesley@stratotechnology.com>
 
-#install base dependancies
 
-RUN apt-get update
-RUN apt-get install -y build-essential git
-RUN apt-get install -y python \ 
-                       python-dev \
-                       python-setuptools
+RUN apk add --update \
+    nginx \
+    && rm -rf /var/cache/apk/*
 
-RUN apt-get install -y nginx \
-                       supervisor
-RUN easy_install pip
+# setup all the configfiles
+ADD root /
 
-# install uwsgi now because it takes a little while
-RUN pip install uwsgi
+chown -R nginx:www-data /var/lib/nginx
 
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN rm /etc/nginx/sites-enabled/default
+EXPOSE 80 443
