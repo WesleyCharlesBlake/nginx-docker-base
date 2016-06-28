@@ -13,3 +13,5 @@ ADD root /
 
 
 EXPOSE 80 443
+#CMD ["nginx"]
+ENTRYPOINT ["/usr/sbin/nginx"]
